@@ -4,7 +4,7 @@ services:
     env: node
     buildCommand: cd Ludo/Ludo/ludo-contest-server && npm install
     startCommand: cd Ludo/Ludo/ludo-contest-server && node app.js
-    rootDirectory: ludo-contest-server
+    rootDirectory: Ludo/Ludo/ludo-contest-server
     envVars:
       - key: MONGODB_URI
         value: "mongodb+srv://d7549377:<33VzncdOascaMHsA>@cluster0.tmgl7.mongodb.net/Ludo"
