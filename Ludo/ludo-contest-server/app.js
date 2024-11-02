@@ -20,12 +20,36 @@ console.log('roomRoutes content:', roomRoutes);
 
 const app = express();
 
-// Configure CORS
+// Update CORS configuration
 app.use(cors({
-  origin: '*', // Allow all origins for testing purposes
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  credentials: true
+    origin: [
+        'https://ludofrontend.onrender.com',
+        'http://localhost:3000',  // for local development
+        'http://localhost:5001'   // for local backend
+    ],
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
+
+// Add CORS headers middleware
+app.use((req, res, next) => {
+    const allowedOrigins = ['https://ludofrontend.onrender.com', 'http://localhost:3000'];
+    const origin = req.headers.origin;
+    
+    if (allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
+    
+    res.header('Access-Control-Allow-Credentials', 'true');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200);
+    }
+    next();
+});
 
 // Middleware
 app.use(express.json());
