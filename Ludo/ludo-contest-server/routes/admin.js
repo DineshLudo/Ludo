@@ -5,6 +5,7 @@ const { adminAuth } = require('../middleware/adminAuth');
 const Room = require('../models/Room');
 const User = require('../models/User');
 const Transaction = require('../models/Transaction');
+const bcrypt = require('bcrypt');
 
 router.get('/summary', auth, adminAuth, async (req, res) => {
     try {
@@ -112,6 +113,36 @@ router.get('/transactions/pending', auth, async (req, res) => {
     } catch (error) {
         console.error('Error fetching pending transactions:', error);
         res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Temporary admin creation endpoint
+router.post('/create-initial-admin', async (req, res) => {
+    try {
+        // Check for existing admin
+        const existingAdmin = await User.findOne({ isAdmin: true });
+        if (existingAdmin) {
+            return res.status(400).json({ message: 'Admin already exists' });
+        }
+
+        // Create new admin
+        const hashedPassword = await bcrypt.hash('admin123', 10);
+        const adminUser = new User({
+            username: 'admin',
+            password: hashedPassword,
+            role: 'admin',
+            isAdmin: true,
+            email: 'admin@example.com'
+        });
+        
+        await adminUser.save();
+        res.json({ 
+            message: 'Admin created successfully',
+            username: 'admin',
+            email: 'admin@example.com'
+        });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 });
 
