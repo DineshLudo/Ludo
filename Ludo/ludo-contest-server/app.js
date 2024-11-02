@@ -66,34 +66,10 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/Ludo';
 
 mongoose.connect(MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
 })
-.then(async () => {
-    console.log('Connected to MongoDB');
-    
-    // Create admin if doesn't exist
-    try {
-        const User = require('./models/User');
-        const bcrypt = require('bcrypt');
-        
-        const existingAdmin = await User.findOne({ isAdmin: true });
-        if (!existingAdmin) {
-            const hashedPassword = await bcrypt.hash('admin123', 10);
-            const adminUser = new User({
-                username: 'admin',
-                password: hashedPassword,
-                role: 'admin',
-                isAdmin: true,
-                email: 'admin@example.com'
-            });
-            await adminUser.save();
-            console.log('Admin user created successfully');
-        }
-    } catch (error) {
-        console.error('Error checking/creating admin:', error);
-    }
-})
+.then(() => console.log('Connected to MongoDB'))
 .catch(err => {
     console.error('Could not connect to MongoDB', err);
     process.exit(1);
