@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: ludo-backend
+    env: node
+    buildCommand: npm install
+    startCommand: node app.js
+    rootDirectory: ludo-contest-server
+    envVars:
+      - key: MONGODB_URI
+        value: "mongodb+srv://d7549377:<password>@cluster0.tmgl7.mongodb.net/Ludo"
+      - key: JWT_SECRET
+        value: "your_jwt_secret"
+      - key: PORT
+        value: "10000"
+
+  - type: web
+    name: ludo-frontend
+    env: static
+    buildCommand: cd ludo-contest-frontend && npm install && npm run build
+    staticPublishPath: ./ludo-contest-frontend/build

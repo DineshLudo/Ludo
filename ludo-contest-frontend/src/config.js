@@ -1,6 +1,8 @@
 const config = {
-  //apiBaseUrl: 'http://192.168.1.5:5001' // Replace with your actual IP address and port
-  apiBaseUrl: 'http://localhost:5001'
+  apiBaseUrl: process.env.REACT_APP_API_URL || 
+    (process.env.NODE_ENV === 'production' 
+      ? 'https://your-backend-url.onrender.com'  // Replace with your Render backend URL
+      : 'http://localhost:5001')
 };
 
 export default config;
