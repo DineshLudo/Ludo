@@ -1,0 +1,22 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# MongoDB
+mongodb_data/
+*.wt
+*.turtle
+diagnostic.data/
+journal/
+*.0000000*
+sizeStorer.wt
+
+# OS
+.DS_Store 
