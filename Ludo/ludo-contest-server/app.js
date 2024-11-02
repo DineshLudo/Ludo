@@ -69,10 +69,34 @@ mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('Connected to MongoDB'))
+.then(async () => {
+    console.log('Connected to MongoDB');
+    
+    // Create admin if doesn't exist
+    try {
+        const User = require('./models/User');
+        const bcrypt = require('bcrypt');
+        
+        const existingAdmin = await User.findOne({ isAdmin: true });
+        if (!existingAdmin) {
+            const hashedPassword = await bcrypt.hash('admin123', 10);
+            const adminUser = new User({
+                username: 'admin',
+                password: hashedPassword,
+                role: 'admin',
+                isAdmin: true,
+                email: 'admin@example.com'
+            });
+            await adminUser.save();
+            console.log('Admin user created successfully');
+        }
+    } catch (error) {
+        console.error('Error checking/creating admin:', error);
+    }
+})
 .catch(err => {
-  console.error('Could not connect to MongoDB', err);
-  process.exit(1);  // Exit the process if unable to connect to MongoDB
+    console.error('Could not connect to MongoDB', err);
+    process.exit(1);
 });
 
 // Add event listeners for MongoDB connection events
