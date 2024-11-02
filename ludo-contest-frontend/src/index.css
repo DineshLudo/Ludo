@@ -1,0 +1,27 @@
+:root {
+  --primary-color: #4CAF50;
+  --secondary-color: #45a049;
+  --background-color: #f0f0f0;
+  --text-color: #333;
+  --card-background: #fff;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: var(--text-color);
+  background-color: var(--background-color);
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Add more styles as needed */
+
+.App {
+  text-align: center;
+  padding: 20px;
+}

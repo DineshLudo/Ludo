@@ -1,0 +1,20 @@
+create a website like following-
+- login and register
+- on homepage we give option to create or join a ludo game.
+- anyone create room we show a textfield and he manually enter a room id which he has already. and a room is created.
+- and we can show that room with room code in the join games list.
+- any other person can join that room by searching that room code in list or by tapping on that row
+- there will be wallet in the website by which users can add money via upi.
+- and to join or create a room  the will have to pay from wallet. for example anyone is creating a room for 100 rs game. he will have to add 100 rs and for joining that room also other person also needs to add 100 rs.
+- after winning the game on that particular ludo app winner will have to upload a screenshot from there account on our website and we will transfer the money to them manually.
+
+
+Thank you for providing the detailed requirements for your ludo game website. I'll outline a basic structure and provide some code snippets to help you get started with this project. We'll use a combination of HTML, CSS, JavaScript for the frontend, and a backend language like Python with a framework such as Flask or Django. For the database, we can use PostgreSQL or MongoDB.
+Here's a high-level overview of the project structure:
+User Authentication (Login/Register)
+Homepage with game creation and joining options
+Room creation and joining functionality
+Wallet system with UPI integration
+Game result verification and payout system
+Let's break down each component:
+User Authentication (Login/Register)
