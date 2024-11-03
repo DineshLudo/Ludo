@@ -95,5 +95,13 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/transactions', transactionRoutes);
 app.use('/api/games', gamesRoutes);
 
-const PORT = process.env.PORT || 5001;  // Changed from 5000 to 5001
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../ludo-contest-frontend/build')));
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../ludo-contest-frontend/build', 'index.html'));
+});
+
+const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
